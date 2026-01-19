@@ -1,8 +1,4 @@
 //raccogliamo i campi del form e creiamo i pets
-
-const form = document.getElementById('pet-form');
-const savedPet = []; //array vuoto per salvare gli animali
-
 class pet {
     constructor(_petName, _ownerName, _species, _breed) {
         this.petName = _petName;
@@ -23,24 +19,43 @@ class pet {
 }
 
 
-form.addEventListener('submit', function (event) {
+
+
+const petForm = document.getElementById("pet-form");
+const savedPets = []; // array globale dei pets
+
+class Pet {
+    constructor(petName, ownerName, species, breed) {
+        this.petName = petName;
+        this.ownerName = ownerName;
+        this.species = species;
+        this.breed = breed;
+    }
+}
+
+petForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
     //riferimenti al campo input
-    const petNameInput = document.getElementById('pet-name');
-    const ownerNameInput = document.getElementById('owner-name');
-    const speciesInput = document.getElementById('species');
-    const breedInput = document.getElementById('breed');
+    const petNameInput = document.getElementById("pet-name");
+    const ownerNameInput = document.getElementById("owner-name");
+    const speciesInput = document.getElementById("species");
+    const breedInput = document.getElementById("breed");
 
-    const newPet = new pet(
-        petNameInput.value, //valore di testo del campo input
+    const newPet = new Pet(
+        petNameInput.value,
         ownerNameInput.value,
         speciesInput.value,
         breedInput.value
     );
 
-    savedPet.push(newPet); //aggiunge l'oggetto creato all'array degli animali
-    console.log(savedPet);
+    savedPets.push(newPet);
+    console.log("Pets:", savedPets);
 
-    form.reset(); //pulisce i campi del form dopo l'invio
+    petForm.reset(); //pulisce i campi del form dopo l'invio
+
+    // 🔥 aggiorna la UI anche quando aggiungi un pet
+    if (typeof showOwners === "function") {
+        showOwners();
+    }
 });

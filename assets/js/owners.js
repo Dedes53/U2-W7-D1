@@ -1,7 +1,7 @@
-class owner {
-    constructor(_name, _surname_, _age, _city) {
+class Owner {
+    constructor(_name, _surname, _age, _city) {
         this.name = _name;
-        this.surname = _surname_;
+        this.surname = _surname;
         this.age = _age;
         this.city = _city;
     }
@@ -17,33 +17,69 @@ class owner {
     }
 }
 
-const owner1 = new owner("Federico", "Lepore", 28, "Milano");
-const owner2 = new owner("Mario", "Rossi", 25, "Roma");
 
-console.log(owner1.compareAge(owner2)); // "Federico is older than Mario"
+const ownerForm = document.getElementById("owner-form");
+const ownersList = document.getElementById("owners-list");
+const savedOwners = []; // array globale degli owners
 
-
-const form = document.getElementById('owner-form');
-const savedOwners = []; //array vuoto per salvare i proprietari
-
-form.addEventListener('submit', function (event) {
+ownerForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    //riferimenti al campo input
-    const ownerNameInput = document.getElementById('owner-name');
-    const ownerSurnameInput = document.getElementById('owner-surname');
-    const ownerAgeInput = document.getElementById('owner-age');
-    const ownerCityInput = document.getElementById('owner-city');
+    const ownerNameInput = document.getElementById("owner-name");
+    const ownerSurnameInput = document.getElementById("owner-surname");
+    const ownerAgeInput = document.getElementById("owner-age");
+    const ownerCityInput = document.getElementById("owner-city");
 
-    const newOwner = new owner(
-        ownerNameInput.value, //valore di testo del campo imput
+    const newOwner = new Owner(
+        ownerNameInput.value,
         ownerSurnameInput.value,
         parseInt(ownerAgeInput.value),
         ownerCityInput.value
     );
 
-    savedOwners.push(newOwner); //aggiunge l'oggetto creato all'array dei proprietari
-    console.log(savedOwners);
+    savedOwners.push(newOwner);
+    console.log("Owners:", savedOwners);
 
-    form.reset(); //pulisce i campi del form dopo l'invio
-})
+    ownerForm.reset();
+
+    showOwners();
+});
+
+function showOwners() {
+    ownersList.innerHTML = "";
+
+    savedOwners.forEach(function (owner) {
+
+        // LI owner
+        const ownerLi = document.createElement("li");
+        ownerLi.textContent = `${owner.name} ${owner.surname}`;
+
+        // UL pets dell'owner
+        const petsUl = document.createElement("ul");
+
+        const ownerPets = savedPets.filter(function (pet) {
+            return pet.ownerName === owner.name;
+        });
+
+        if (ownerPets.length > 0) {
+            ownerPets.forEach(function (pet) {
+                const petLi = document.createElement("li");
+                petLi.textContent = `${pet.petName} (${pet.species}, ${pet.breed})`;
+                petsUl.appendChild(petLi);
+            });
+        } else {
+            const emptyLi = document.createElement("li");
+            emptyLi.textContent = "Nessun pet associato";
+            petsUl.appendChild(emptyLi);
+        }
+
+        ownerLi.appendChild(petsUl);
+        ownersList.appendChild(ownerLi);
+    });
+}
+
+
+
+
+
+

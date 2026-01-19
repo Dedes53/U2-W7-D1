@@ -18,9 +18,10 @@ class Owner {
 }
 
 
+
 const ownerForm = document.getElementById("owner-form");
 const ownersList = document.getElementById("owners-list");
-const savedOwners = []; // array globale degli owners
+
 
 ownerForm.addEventListener("submit", function (event) {
     event.preventDefault();
@@ -41,7 +42,6 @@ ownerForm.addEventListener("submit", function (event) {
     console.log("Owners:", savedOwners);
 
     ownerForm.reset();
-
     showOwners();
 });
 
@@ -50,11 +50,11 @@ function showOwners() {
 
     savedOwners.forEach(function (owner) {
 
-        // LI owner
+        // LI OWNER
         const ownerLi = document.createElement("li");
         ownerLi.textContent = `${owner.name} ${owner.surname}`;
 
-        // UL pets dell'owner
+        // UL PETS DELL'OWNER
         const petsUl = document.createElement("ul");
 
         const ownerPets = savedPets.filter(function (pet) {
@@ -77,9 +77,3 @@ function showOwners() {
         ownersList.appendChild(ownerLi);
     });
 }
-
-
-
-
-
-

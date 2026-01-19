@@ -1,0 +1,2 @@
+window.savedOwners = [];
+window.savedPets = [];

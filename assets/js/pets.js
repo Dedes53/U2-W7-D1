@@ -26,14 +26,14 @@ class pet {
 form.addEventListener('submit', function (event) {
     event.preventDefault();
 
-    //riferimenti al campo imput
+    //riferimenti al campo input
     const petNameInput = document.getElementById('pet-name');
     const ownerNameInput = document.getElementById('owner-name');
     const speciesInput = document.getElementById('species');
     const breedInput = document.getElementById('breed');
 
     const newPet = new pet(
-        petNameInput.value, //valore di testo del campo imput
+        petNameInput.value, //valore di testo del campo input
         ownerNameInput.value,
         speciesInput.value,
         breedInput.value
